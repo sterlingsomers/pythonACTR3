@@ -52,7 +52,7 @@ class Model:
 
     def __init__(self,log=None,**keys):
         #print("this happens")
-        print(self,"Model A1")#sterling
+        #print(self,"Model A1")#sterling
         self.__init_log=log
         for k,v in list(keys.items()):
           setattr(self,k,v)
@@ -64,7 +64,7 @@ class Model:
 
 
     def __convert(self,parent=None,name=None):
-        print("__convert() called", self)
+        #print("__convert() called", self)
         #Culprit
         #if self.__converted: return
         assert self.__converted==False
@@ -75,7 +75,7 @@ class Model:
         
         methods={}
         objects={}
-        print(inspect.getmro(self.__class__),"MRO") #sterling
+        #print(inspect.getmro(self.__class__),"MRO") #sterling
         #This MRO includes class object, whereas in 2.7, it does not
         #add[:-1], because it seems that object is always at the end.
         '''            obj.__convert(self,name)
@@ -83,11 +83,11 @@ class Model:
         #BUT a later run crashes.
         for klass in inspect.getmro(self.__class__)[:-1]:
           
-            print(klass, "klass")
+            #print(klass, "klass")
             if klass is not Model:
                 #print(klass, "klass")
                 for k,v in inspect.getmembers(klass):
-                    print(k,",",v,"k,v")
+                    #print(k,",",v,"k,v")
                     
                     if k[0]!='_':
                         #print(k,"just k")
@@ -98,9 +98,9 @@ class Model:
                         #isfunction might work in it's place
                         #if inspect.ismethod(v):
                         if inspect.isfunction(v):
-                            print(k,v,"k,v+")
+                            #print(k,v,"k,v+")
                             if k not in ['run','now','get_children'] and k not in methods and klass is not Model:
-                                print(k,v,"k,v-post")
+                                #print(k,v,"k,v-post")
                                 methods[k]=v
                         else:
                             if inspect.isclass(v) and Model in inspect.getmro(v):
@@ -139,14 +139,14 @@ class Model:
             if isinstance(obj,Model):
                 #print(dir(obj))  
                 if not obj.__converted:
-                    print(obj,"obj")
-                    print(self,"self")
-                    print("run before")
+                    #print(obj,"obj")
+                    #print(self,"self")
+                    #print("run before")
                     #self.run(limit=0)
                     
                     #self.run(limit=0)
                     obj.__convert(self,name)
-                    print("run after")
+                    #print("run after")
                     
                     #self.run(limit=0)
                 else:
@@ -155,11 +155,11 @@ class Model:
                   self._children[name]=obj
                 except AttributeError:
                   self._children={name:obj}
-            print("run before 2",name,obj)
+            #print("run before 2",name,obj)
             #self.run(limit=0)
             #print(dir(obj))
             self.__dict__[name]=obj
-            print("run after 2",name,obj)
+            #print("run after 2",name,obj)
             #print(dir(obj))
             #self.run(limit=0)
         #check out _convert_info - see difference between 2.7 running and 3.3 running.
@@ -167,7 +167,7 @@ class Model:
         
         if self._convert_methods:    
           for name,func in list(methods.items()):
-              print("here",name,func)
+              #print("here",name,func)
               #print(dir(func))
               #if func.__func__.__code__.co_flags&0x20==0x20:
               if func.__code__.co_flags&0x20==0x20:
@@ -177,7 +177,7 @@ class Model:
               self.__dict__[name]=w    
 
         if self._auto_run_start:
-            pass#self.start()    
+            self.start()
         
         for k,v in list(self.__dict__.items()):
             if k[0]!='_' and k!='parent' and isinstance(v,Model):

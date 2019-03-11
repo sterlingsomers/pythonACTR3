@@ -141,17 +141,17 @@ class morse_middleware():
         try:
             with time_limit(1):
                 result = eval(rStr)
-                print("Here")
+                #print("Here")
                 #result = result()
                 self.robot_simulation.tick()
                 self.mustTick=False
-                print("Result:",result)
+                #print("Result:",result)
                 return result
 
-                print("Here")
+                #print("Here")
 
                 result = result.result()
-                print("Here2")
+                #print("Here2")
         except TimeoutException:
             self.mustTick=False
             self.robot_simulation.tick()
