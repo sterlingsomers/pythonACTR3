@@ -1,0 +1,7 @@
+try:
+    from pymorse import Morse
+except ImportError:
+    raise("Pymorse not properly installed")
+
+
+
