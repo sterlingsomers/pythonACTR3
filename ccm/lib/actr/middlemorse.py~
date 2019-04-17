@@ -1,0 +1,12 @@
+#MiddleMorse
+from pymorse import Morse
+
+
+class MiddleMorse:
+    def __init__(self):
+        self._m = Morse()
+
+    
+
+
+
